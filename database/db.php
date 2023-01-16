@@ -2,7 +2,7 @@
 
 class DB{
     static public function connect(){
-        $db = new PDO("mysql:host=localhost;dbname=employees_gestion","root","root");
+        $db = new PDO("mysql:host=localhost;dbname=letscode","root","");
 
         $db->exec("set names utf8");
         $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_WARNING);

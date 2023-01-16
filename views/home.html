@@ -1,0 +1,197 @@
+
+<div class=" d-flex ">
+    
+    <div class="d-flex flex-column  p-3 text-white bg-dark " style="width: 280px; height:100vh;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            
+            <span class="fs-4">letsCode</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" aria-current="page">
+                    
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2"></use>
+                    </svg>
+                    Dashboard
+                </a>
+            </li>
+           
+    
+        </ul>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>mdo</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1" style="">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+    
+   
+    <div class="container bg-black p-3  bg-opacity-10 border border-info border-start-0 rounded-end">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <?php include('./views/includes/alerts.php'); ?>
+                <div class="card">
+                    <div class="card-body bg-light">
+                        <a href="<?= BASE_URL;  ?>add"> <i class="fas fa-plus"> add</i> </a>
+                        <a href="<?= BASE_URL;  ?>logout"> <i class="fas fa-user"></i><?= $_SESSION['username'] ?> </a>
+                        <form action="" method="post" class=" form-control  d-flex justify-content-end">
+                            <input type="text" name="search" id="" placeholder="recherche" class="float-right    w-15px rounded-1">
+                            <button type="submit" name="find" class="btn btn-sm btn-info"> <i class="fa fa-search"></i> </button>
+                        </form>
+                        <?php if (isset($_SESSION['crud_error'])) : ?>
+                            <div class="alert alert-<?php if ($_SESSION['crud_error'] === 'Process Success :)') :
+                                                        echo 'success';
+                                                    else : echo 'danger';
+                                                    endif ?>
+                        alert-dismissible fade show">
+                                <strong>wrong!</strong>
+                                <?php
+                                echo $_SESSION['crud_error'];
+                                unset($_SESSION['crud_error']);
+                                ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert">
+                                </button>
+                            </div>
+                        <?php endif ?>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">title</th>
+                                        <th scope="col">Author</th>
+                                        <th scope="col">category</th>
+                                        <th scope="col">language</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($employes as $employe) : ?>
+                                        <tr>
+                                            <th scope="row h"><?= $employe["id"]; ?></th>
+                                            <td><?= $employe["name"]; ?></td>
+                                            <td><?= $employe["status"] ? '<span class=" badge bg-success ">active</span>' :
+                                                    '<span class=" badge bg-danger ">rellié</span>'; ?></td>
+                                            <td>
+                                                <form action="update" method="post" class=" d-inline-block m-1">
+                                                    <input type="hidden" name="id" value="<?= $employe["id"]; ?>">
+                                                    <button class="btn btn-sm btn-warning " type="submit"> Edit <i class="bi bi-pencil"></i>
+                                                    </button>
+
+
+                                                </form>
+                                                <form action="delete" method="post" class="d-inline-block  m-1">
+                                                    <input type="hidden" name="id" value="<?= $employe["id"]; ?>">
+                                                    <button class="btn btn-sm btn-danger" type="submit"> Delete<i class="  fa fa-trashe"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+
+
+                                        <?php endforeach; ?>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="container-fluid mt-3">
+    <h3>Offcanvas Sidebar</h3>
+    <p>Offcanvas is similar to modals, except that it is often used as a sidebar.</p>
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+        Open Offcanvas Sidebar
+    </button>
+</div> -->
+
+
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <?php include('./views/includes/alerts.php'); ?>
+            <div class="card">
+                <div class="card-body bg-light">
+                    <a href="<?= BASE_URL;  ?>add"> <i class="fas fa-plus"> add</i> </a>
+                    <a href="<?= BASE_URL;  ?>logout"> <i class="fas fa-user"></i><?= $_SESSION['username'] ?> </a>
+                    <form action="" method="post" class=" float-right d-flex flex-row">
+                        <input type="text" name="search" id="" placeholder="recherche" class=" form-control w-100 rounded-1">
+                        <button type="submit" name="find" class="btn btn-sm btn-info"> <i class="fa fa-search"></i> </button>
+                    </form>
+                    <?php if (isset($_SESSION['crud_error'])) : ?>
+                        <div class="alert alert-<?php if ($_SESSION['crud_error'] === 'Process Success :)') :
+                                                    echo 'success';
+                                                else : echo 'danger';
+                                                endif ?>
+                    alert-dismissible fade show">
+                            <strong>wrong!</strong>
+                            <?php
+                            echo $_SESSION['crud_error'];
+                            unset($_SESSION['crud_error']);
+                            ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert">
+                            </button>
+                        </div>
+                    <?php endif ?>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <caption>List of employees</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col  ">id</th>
+                                    <th scope="col ">name</th>
+                                    <th scope="col">status</th>
+                                    <th scope="col">action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($employes as $employe) : ?>
+                                    <tr>
+                                        <th scope="row h"><?= $employe["id"]; ?></th>
+                                        <td><?= $employe["name"]; ?></td>
+                                        <td><?= $employe["status"] ? '<span class=" badge bg-success ">active</span>' :
+                                                '<span class=" badge bg-danger ">rellié</span>'; ?></td>
+                                        <td>
+                                            <form action="update" method="post" class=" d-inline-block m-1">
+                                                <input type="hidden" name="id" value="<?= $employe["id"]; ?>">
+                                                <button class="btn btn-sm btn-warning " type="submit"> Edit <i class="bi bi-pencil"></i>
+                                                </button>
+
+
+                                            </form>
+                                            <form action="delete" method="post" class="d-inline-block  m-1">
+                                                <input type="hidden" name="id" value="<?= $employe["id"]; ?>">
+                                                <button class="btn btn-sm btn-danger" type="submit"> Delete<i class="  fa fa-trashe"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+
+
+                                    <?php endforeach; ?>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

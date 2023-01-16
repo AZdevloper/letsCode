@@ -4,7 +4,7 @@ class HommeController{
 
     public function index($page){
 
-        include('views/'.$page.'.php');
+        include('views/'.$page.'.html');
 
     }
 }

@@ -1,7 +1,9 @@
 <?php
+
+
 if (isset($_POST['id'])) {
-    $data = new EmployesController();
-    $data->deleteEmployes();
+    $data = new articlesController(); 
+    $data->deleteArticle();
 }else {
     Redirect::to('home');                
 

@@ -6,10 +6,11 @@ CREATE TABLE user(
 
 );
 
-CREATE TABLE articles(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    content VARCHAR(255),
-    category VARCHAR(255),
-    author_id INT,
-    FOREIGN KEY(author_id) REFERENCES user(id) ON UPDATE CASCADE ON DELETE CASCADE
-);
+CREATE TABLE
+    articles(
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        content VARCHAR(255),
+        category_id int,
+        author VARCHAR(255),
+        FOREIGN KEY(category_id) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );

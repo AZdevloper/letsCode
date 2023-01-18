@@ -1,5 +1,5 @@
 <?php 
-class EmployesController{
+class articlesController{
 
     public function findEmployes()
     {
@@ -17,24 +17,35 @@ class EmployesController{
             return $employes;   
         }
     }
-    public function getAllEmployes(){
-        $employes = Employe::getAll();
+    public function getAllArticles(){
+        $articales = Article::getAll();
 
-        return $employes;
+        return $articales;
     }
     public function getEmploye(){
         $employes = Employe::getSingelEmploye($_POST['id']);
 
         return $employes;
     }
-    public function addEmployes(){
-        if(!empty($_POST['name']) && !empty($_POST['status'])){
-            $data = array(
-                'name' => $_POST['name'] ,
-                'status' => $_POST['status'] 
-             );
+    public function addArticle(){
+        // die(print_r($_POST["author"][0]));
+        // 'title' => $_POST['title'][$i],
+        //             'created_date' => $_POST['created_date'][$i],
+
+            for ($i=0; $i <sizeof($_POST["author"]) ; $i++) {
+                $data = array(
+                    'content' => $_POST['content'][$i],
+                    'category_id' => $_POST['category_id'][$i],
+                    'author' => $_POST['author'][$i],
+                    'title' => $_POST['title'][$i],
+
+                    
+
+                );
+                $result = Article::add($data);
+            }
            
-             $result = Employe::add($data);
+           
              if ($result) {
                 Session::set('success', 'employe added');
                 $_SESSION['add_error'] = 'row added successfully to databse';
@@ -46,13 +57,9 @@ class EmployesController{
                Redirect::to('home');                
 
              }
-        }else {
-            $_SESSION['add_error'] = 'plese fill all information ?';
-            Redirect::to('home');                
-
-        }
-
-    }
+   
+            }
+    
     public function updateEmployes(){
         // die(print_r($_POST['status']));
 
@@ -82,8 +89,8 @@ class EmployesController{
         }
 
     }
-    public function deleteEmployes(){
-        // die(print_r($_POST['status']));
+    public function deleteArticle(){
+        // die(print_r($_POST['id']));
 
         if(!empty($_POST['id']) ){
             // die(print_r($_POST['status']));
@@ -91,22 +98,21 @@ class EmployesController{
                 'id' => $_POST['id'] ,
               
              );
-           
-             $result = Employe::delete($data);
+            
+             $result = Article::delete($data);
              if ($result) {
-                Session::set('success', 'employe deleted');
+                Session::set('success', 'article deleted');
 
-                 $_SESSION['crud_error'] = 'Process Success :)';
+                $_SESSION['crud_error'] = 'Process Success :)';
                 Redirect::to('home');                
              }else {
                  $_SESSION['crud_error'] = 'Process  failed :(';
                  Redirect::to('home');                
 
              }
-        }else {
-            $_SESSION['crud_error'] = 'please fill in the required information';
-            Redirect::to('home');                
-
+        } else {
+            $_SESSION['crud_error'] = 'Process  failed :(';
+            Redirect::to('home');
         }
 
     }

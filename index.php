@@ -6,7 +6,20 @@
 
     $home = new HommeController();
     $pages = ['home','add','update','delete','register','login','logout'];
-$home->index('home');
+// $home->index('home');
+    if(isset($_GET['page'])){
+
+        if(in_array($_GET['page'], $pages)){
+            $page = $_GET['page'];
+            $home->index($page);
+
+        }else{
+            include('views/includes/404.php');
+        }
+
+    }else{
+        $home->index('home');
+    }
 
 // if (isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
 

@@ -17,10 +17,10 @@ class Article {
 
      }
 
-     static public function getSingelEmploye($id){
+     static public function getSingleArticle($id){
           try {
                // $id = $data['id'];
-               $stmt= DB::connect()->prepare('SELECT  * FROM employees WHERE id = ?');
+               $stmt= DB::connect()->prepare('SELECT  * FROM articles WHERE id = ?');
                $stmt->execute(array($id));
               return $stmt->fetch(PDO::FETCH_OBJ);
           } catch (PDOException $ex) {
@@ -46,9 +46,11 @@ class Article {
      static public function update($data){
           try {
           extract($data);
-          $stmt= DB::connect()->prepare("UPDATE `employees` SET `name`=?,`status`=? WHERE `id`= ? ");
-          $stmt->execute(array($name,$status,$id));
-          return true;
+          //   die(print_r($id));
+
+          $stmt= DB::connect()->prepare("UPDATE `articles` SET `content`=?, `category_id`=?, `author`=?, `title`=? WHERE `id` =? ");
+          return $stmt->execute(array($content, $category_id, $author, $title,$id));
+          
           } catch (PDOException $ex) {
                
                // return 'error' . $ex->getMessage();

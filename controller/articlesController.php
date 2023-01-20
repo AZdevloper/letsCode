@@ -22,10 +22,10 @@ class articlesController{
 
         return $articales;
     }
-    public function getEmploye(){
-        $employes = Employe::getSingelEmploye($_POST['id']);
+    public function getArticle(){
+        $article = Article::getSingleArticle($_POST['id']);
 
-        return $employes;
+        return $article;
     }
     public function addArticle(){
         // die(print_r($_POST["author"][0]));
@@ -60,33 +60,32 @@ class articlesController{
    
             }
     
-    public function updateEmployes(){
-        // die(print_r($_POST['status']));
+    public function updateArticle(){
+            // die(print_r($_POST['id']));
 
-        if(!empty($_POST['name']) ){
+        
             // die(print_r($_POST['status']));
             $data = array(
-                'id' => $_POST['id'] ,
-                'name' => $_POST['name'] ,
-                'status' => $_POST['status'] 
-             );
+                'content' => $_POST['content'],
+                'id' => $_POST['id'],
+                'category_id' => $_POST['category_id'],
+                'author' => $_POST['author'],
+                'title' => $_POST['title'],
+            );
+            // die(print_r($_POST['id']));
            
-             $result = Employe::update($data);
+             $result = Article::update($data);
              if ($result) {
                 Session::set('success', 'employe updated');
-                 $_SESSION['crud_error'] = 'Process Success :)';
+                //  $_SESSION['crud_error'] = 'Process Success :)';
                  Redirect::to('home');                
                 
              }else {
-                 $_SESSION['crud_error'] = 'Process  failed :(';
+            Session::set('success', 'employe updated');
                  Redirect::to('home');                
 
              }
-        }else {
-            $_SESSION['crud_error'] = 'please fill in the required information';
-            Redirect::to('home');                
-
-        }
+       
 
     }
     public function deleteArticle(){

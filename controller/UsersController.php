@@ -18,7 +18,7 @@ class UsersController
                 );
                 $result = User::createUser($data);
                 if ($result) {
-                    Session::set('success', 'user added');
+                    Session::set('success', 'your account created successfully');
                     Redirect::to('login');
 
                     

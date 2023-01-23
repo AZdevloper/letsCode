@@ -15,8 +15,6 @@
 
 
 
-<body>
+<body class=" vh-100">
 
-  <div class=" d-flex ">
-
-    <?php include("sidebar.php") ?>
+  <div class=" d-flex h-100 align-it ">

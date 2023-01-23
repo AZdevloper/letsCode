@@ -17,20 +17,24 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="card-body bg-light">
                     <form method="post">
-                        <div class="form-control mb-3">
+                        <div class="form-control mb-3 position-relative" id="divUserName">
                             <label for="" class="form-label">user name</label>
-                            <input type="text" class="form-control text-center" name="userName" id="userNameSignUp" placeholder="" style="outline: none;">
+                            <input type="text" class="form-control text-center" name="userName" id="userName" placeholder="" style="outline: none;">
                         </div>
                         <div class="form-control mb-3 position-relative" id="divEmail">
                             <label for="" class="form-label">email</label>
                             <input type="email" class="form-control text-center" id="userEmail" name="email" placeholder="">
                         </div>
-                        <div class="form-control mb-3">
+                        <div class="form-control mb-3 position-relative" id="divPassword">
                             <label for="" class="form-label">PassWord</label>
-                            <input type="password" class="form-control text-center" name="password" placeholder="">
+                            <input type="password" class="form-control text-center" name="password" id="passWord" placeholder="">
                         </div>
-                        <div>
-                            <button type="submit" class="btn btn-sm btn-primary" name="submit">sign up
+                        <div class="form-control mb-3 position-relative" id="divConfirmPassword">
+                            <label for="" class="form-label">Confirm your passWord</label>
+                            <input type="password" class="form-control text-center" placeholder="" id="ConfirmPassword">
+                        </div>
+                        <div id="divBtnSubmit">
+                            <button type="submit" class="btn btn-sm btn-primary" onclick="cheekAll()" name="submit" id="btnSubmit">sign up
                             </button>
                         </div>
                     </form>

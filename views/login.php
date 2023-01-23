@@ -2,7 +2,7 @@
 if (isset($_POST['submit'])) {
     # code...
     $data = new UsersController();
-    $employes = $data->auth();
+    $user = $data->auth();
     
 }
 

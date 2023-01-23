@@ -34,3 +34,10 @@ thead, tbody tr {
     width:100%;
     table-layout:fixed;
 }
+.form-control:focus{
+  box-shadow: none;
+}
+.position-absolute{
+  top: 40%;
+  left:5%;
+}

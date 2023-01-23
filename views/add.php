@@ -9,6 +9,8 @@ if (isset($_POST['submit'])) {
 
 
 ?>
+<?php include("views/includes/sidebar.php") ?>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto">

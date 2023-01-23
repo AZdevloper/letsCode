@@ -1,4 +1,4 @@
-<script src="views/includes/main.js">
+<!-- <script src="views/includes/main.js"> -->
     
 </script>
 

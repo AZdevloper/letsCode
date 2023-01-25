@@ -1,0 +1,23 @@
+    CREATE TABLE
+    categoreis(
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        category VARCHAR(255),
+    );
+CREATE TABLE user(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    userName VARCHAR(255),
+    email VARCHAR(255),
+    passWord VARCHAR(255)
+
+);
+
+CREATE TABLE
+    articles(
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        content VARCHAR(255),
+        category_id int,
+        user_id int(11),
+        author VARCHAR(255),
+        FOREIGN KEY(category_id) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE
+        FOREIGN KEY(user_id) REFERENCES user(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );

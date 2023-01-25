@@ -15,6 +15,6 @@
 
 
 
-<body class=" vh-100">
+<body class="vh-100 ">
 
-  <div class=" d-flex h-100 align-it ">
+  <div class=" d-flex h-100 align-it align-items-center ">

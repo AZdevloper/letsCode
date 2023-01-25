@@ -3,16 +3,16 @@ add_new_article.addEventListener("click", () => {
                             <div class="m-2 p-3 bg-primary  bg-opacity-10 border border-info  rounded">
                                 <div class="mb-3">
                                             <label for="" class="form-label">Title</label>
-                                            <input type="text" class="form-control form-control-sm" name="title[]" id="" aria-describedby="helpId" placeholder="">
+                                            <input type="text" class="form-control form-control-sm" name="title[]" id="" aria-describedby="helpId" placeholder="" required>
                                         </div>
                                 <div class="mb-3">
                                     <label for="" class="form-label">author</label>
-                                    <input type="text" class="form-control form-control-sm" name="author[]" id="" aria-describedby="helpId" placeholder="">
+                                    <input type="text" class="form-control form-control-sm" name="author[]" id="" aria-describedby="helpId" placeholder="" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">category</label>
-                                    <select class="form-select form-select-lg" name="category_id[]" id="">
+                                    <select class="form-select form-select-lg" name="category_id[]" id="" required>
                                         <option value="1">Blockchain</option>
                                         <option value="2">Cyber Security</option>
                                         <option value="3">Quantum Computing</option>
@@ -25,5 +25,4 @@ add_new_article.addEventListener("click", () => {
                                 </div>
                             </div>`;
 });
-alert("add");
 

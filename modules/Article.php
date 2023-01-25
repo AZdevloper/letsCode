@@ -1,23 +1,72 @@
 <?php 
 
 class Article {
+     static public function statistics()
+     { 
+          $stmt = DB::connect()->prepare('SELECT  COUNT(*) as numberOfArticles FROM articles where user_id = ? ');
+          $stmt->execute(array($_SESSION['userId']));
+          $array = $stmt->fetch(PDO::FETCH_ASSOC);
+          $stmt = DB::connect()->prepare('SELECT  COUNT(*) as numberOfUsers FROM user   ');
+          $stmt->execute();
+          $array += $stmt->fetch(PDO::FETCH_ASSOC);
 
-     static public function find($data){
+          $stmt = DB::connect()->prepare('SELECT  COUNT(author) as numberOfAuthors FROM articles ');
+          $stmt->execute();
+          $array += $stmt->fetch(PDO::FETCH_ASSOC);
+          return $array;
+     }
+     static public function find($data)
+     {
           extract($data);
-          $stmt= DB::connect()->prepare('SELECT  * FROM employees WHERE name LIKE ? ');
+          $stmt= DB::connect()->prepare('SELECT  articles.*, categories.category as category_name  FROM articles INNER JOIN categories ON articles.category_id = categories.id WHERE title LIKE ? ');
           $stmt->execute(array('%'.$search.'%'));
          return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
        }
-     static public function getAll(){
-        $stmt= DB::connect()->prepare('SELECT articles.* , categories.category as category_name FROM articles INNER JOIN categories where articles.category_id=categories.id ORDER BY `category_name` ASC');
-        $stmt->execute();
-       return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+     static public function getAll()
+     {
+          if (isset($_POST['sort'])) {
+               $stmt = DB::connect()->prepare('SELECT * from articles where user_id = ? ORDER BY created_date');
+               $stmt->execute(array($_SESSION['userId']));
+               $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+               $stmt = DB::connect()->prepare('SELECT * from categories');
+               $stmt->execute();
+               $categories =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+               for ($i = 0; $i < sizeof($categories); $i++) {
+                    for ($j = 0; $j < sizeof($article); $j++) {
+                         if ($categories[$i]['id'] == $article[$j]['category_id']) {
+                              $article[$j]['category_name'] = $categories[$i]['category'];
+                         }
+                    }
+               }
+               return $article;
+
+          }
+        $stmt= DB::connect()->prepare('SELECT * from articles where user_id = ?;');
+        $stmt->execute(array($_SESSION['userId']));
+       $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+          // die(print_r($article));
+
+          $stmt = DB::connect()->prepare('SELECT * from categories');
+          $stmt->execute();
+          $categories =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+          for ($i = 0; $i < sizeof($categories); $i++) {
+               for ($j = 0; $j < sizeof($article); $j++) {
+                    if ($categories[$i]['id'] == $article[$j]['category_id']) {
+                         $article[$j]['category_name'] = $categories[$i]['category'];
+                         // $article[$j]['id'] = $article[$j]['id'];
+                    }
+               }
+          }
+          // die(print_r($article));
+          return $article;
      }
 
-     static public function getSingleArticle($id){
+     static public function getSingleArticle($id)
+     {
           try {
                // $id = $data['id'];
                $stmt= DB::connect()->prepare('SELECT  * FROM articles WHERE id = ?');
@@ -30,43 +79,32 @@ class Article {
       
   
        }
-     static public function add($data){
-
-          //  die(print_r(extract($data)));
-          // die(print_r($_POST["author"][0]));
+     static public function add($data)
+     {
           extract($data);
 
+          $stmt= DB::connect()->prepare('INSERT INTO `articles`( `content`, `category_id`, `author`, `title`,`user_id`) VALUES (?,?,?,?,?)');
+         $result = $stmt->execute(array($content, $category_id, $author, $title, $_SESSION['userId']));
 
-          $stmt= DB::connect()->prepare('INSERT INTO `articles`( `content`, `category_id`, `author`, `title`) VALUES (?,?,?,?)');
-         $result = $stmt->execute(array($content, $category_id, $author, $title));
-     //     $result->close();
-     //     $result = null;
          return $result;
        }
-     static public function update($data){
+     static public function update($data)
+     {
           try {
           extract($data);
-          //   die(print_r($id));
-
           $stmt= DB::connect()->prepare("UPDATE `articles` SET `content`=?, `category_id`=?, `author`=?, `title`=? WHERE `id` =? ");
-          return $stmt->execute(array($content, $category_id, $author, $title,$id));
-          
+          return $stmt->execute(array($content, $category_id, $author, $title,$id)); 
           } catch (PDOException $ex) {
-               
-               // return 'error' . $ex->getMessage();
                return false;
           }
      }
      static public function delete($data){
           try {
           extract($data);
-               // die(print_r($data));
           $stmt= DB::connect()->prepare('DELETE FROM `articles` WHERE `id`= ? ');
           $stmt->execute(array($id));
           return true;
           } catch (PDOException $ex) {
-               
-               // return 'error' . $ex->getMessage();
                return false;
           }
      }

@@ -1,8 +1,6 @@
-
 btnSubmit.disabled = true;
 //array 
 let array = [];
-// label and icon of error
 let labelError = document.createElement("label");
 labelError.classList.add(
   "row",
@@ -23,7 +21,6 @@ userName.addEventListener("input", function (e) {
   var pattern = /^[^0-9]{3,15}$/;
   var currentValue = e.target.value;
   let valid = pattern.test(currentValue);
-  console.log("message", valid);
 
   if (valid) {
   labelError.remove();
@@ -46,12 +43,10 @@ userName.addEventListener("input", function (e) {
   }
 });
 
-// email validation
 userEmail.addEventListener("input", function (e) {
   var pattern = /^[a-z.A-Z]+@[a-zA-Z]+.com$/;
   var currentValue = e.target.value;
   let valid = pattern.test(currentValue);
-  console.log("message", valid);
 
   if (valid) {
     labelError.remove();
@@ -132,13 +127,8 @@ function cheekAll(){
     
     
   }
-  console.log(check)
   if (check >= 4) {
-    // console.log(check);
     let Submit = document.getElementById("btnSubmit");
     Submit.disabled = false;
-    // btnSubmit.setAttribute("type", "");
-    // divBtnSubmit.textContent = "fill all ";
-    // divBtnSubmit.appendChild(labelError);
   }
 };

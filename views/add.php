@@ -1,8 +1,5 @@
 <?php
 if (isset($_POST['submit'])) {
-
-
-    // die(print_r( count($_POST["author"])));
     $data = new articlesController();
     $data->addArticle();
 }
@@ -10,12 +7,13 @@ if (isset($_POST['submit'])) {
 
 ?>
 <?php include("views/includes/sidebar.php") ?>
-
+<link rel="stylesheet" href="asset/parsley/parsley.css">
+<script src="asset/parsley/jquery.js"></script>
+<script src="asset/parsley/parsley.min.js"></script>
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="card">
-                content, $category_id, $author, $title, $created_date
                 <div class="card-body bg-light">
                     <div class=" d-flex justify-content-between">
                         <a href="<?= BASE_URL;  ?>home" class="btn btn-secondary">
@@ -24,23 +22,23 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class=" m-4 border border-black">
                         <small id="helpId" class="form-text text-muted">inter your article information</small>
-                        <form method="post">
+                        <form method="post" data-parsley-validate>
 
                             <div id="formParent">
 
                                 <div class="m-2 p-3 bg-primary  bg-opacity-10 border border-info  rounded">
                                     <div class="mb-3">
                                         <label for="" class="form-label">Title</label>
-                                        <input type="text" class="form-control form-control-sm" name="title[]" id="" aria-describedby="helpId" placeholder="">
+                                        <input type="text" class="form-control form-control-sm" name="title[]" id="" aria-describedby="helpId" placeholder="" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Author</label>
-                                        <input type="text" class="form-control form-control-sm" name="author[]" id="" aria-describedby="helpId" placeholder="">
+                                        <input type="text" class="form-control form-control-sm" name="author[]" id="" aria-describedby="helpId" placeholder="" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="" class="form-label">Category</label>
-                                        <select class="form-select form-select-lg" name="category_id[]" id="">
+                                        <select class="form-select form-select-lg" name="category_id[]" id="" required>
                                             <option value="1">Blockchain</option>
                                             <option value="2">Cyber Security</option>
                                             <option value="3">Quantum Computing</option>
@@ -68,3 +66,4 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </div>
+<script src="views/jsFiles/add.js">

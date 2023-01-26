@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
             <?php include('./views/includes/alerts.php'); ?>
             <div class="card">
                 <div class=" card-header">
-                    <h1 class="text-center">sign up</h1>
+                    <h1 class="text-center text-monospace">sign up</h1>
                 </div>
                 <div class="card-body bg-light">
                     <form method="post">
